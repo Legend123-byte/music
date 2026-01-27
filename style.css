@@ -1,0 +1,931 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #222533;
+  --text-clr: #e6e6ef;
+  --accent-clr: #5e63ff;
+  --secondary-text-clr: #b0b3c1;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5rem;
+}
+
+body{
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--base-clr);
+  color: var(--text-clr);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  
+}
+
+.layer1{
+  padding: 17px 30px;
+  display: flex;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+.music-logo{
+  position: relative;
+  gap: 12px;
+  left: -5px;
+  top: -5px;
+  display: flex;
+  align-items: center;
+  height: 38px;
+  text-decoration: none;
+  color: white;
+  font-family:"Segoe UI", sans-serif;
+}
+
+
+.music-logo svg{
+  display: block;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+}
+
+.music-logo::after{
+  content: "Music";
+  font-size: 35px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------------- Layer 2 ---------------- */
+
+.layer2{
+  margin: 0px 25px;
+  display: flex;
+  justify-content: flex-end; /* ⬅ pushes search to right */
+}
+
+.form-control{
+  height: 50px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.form-control::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  /* background: rgb(17, 17, 190); */
+  opacity: 0;
+  border-radius: 2px;
+  transition: opacity 0.2s ease;
+}
+
+/* .form-control:has(input:focus)::before,
+.form-control:has(input:valid)::before{
+  opacity: 1;
+} */
+
+.form-control input{
+  height: 40px;
+  width: 230px;
+  background: #333;
+  border: 2px solid transparent;
+  outline: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0 10px;
+  text-indent: 20px;
+  transition: border-color 0.2s ease;
+  caret-color: transparent;
+  cursor: pointer;
+}
+
+/* .form-control input:focus{
+  border-color: rgb(27, 48, 182);
+  box-shadow: 0 0 6px rgba(0, 38, 255, 0.6);
+} */
+
+.form-control input:is(:focus, :valid){
+  background: #444;
+  padding: 6px 10px 0;
+  border-color: rgb(30, 0, 255);
+}
+
+.form-control label{
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  pointer-events: none;
+  color: #8c8c8c;
+  transition: all 0.1s ease;
+}
+
+.form-control input:is(:focus, :valid) ~ label{
+  font-size: 0.75rem;
+  transform: translateY(-100%);
+}
+
+.search-svg{
+  position: absolute;
+  background: transparent;
+  top: 50%;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+/* ================= SEARCH BAR COLLAPSE ================= */
+
+/* hide input & label when sidebar is closed */
+#sidebar.close .form-control input,
+#sidebar.close .form-control label {
+  opacity: 0;
+  width: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* keep only the search icon visible */
+#sidebar.close .form-control {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* center the magnifying glass */
+#sidebar.close .search-svg {
+  left: 50%;
+  transform: translate(-30%, 10%);
+  fill: rgb(255, 255, 255); /* or white if you want */
+}
+
+
+/* ---------------- Sidebar ---------------- */
+
+#sidebar{
+  box-sizing: border-box;
+  height: 100vh;
+  width: 320px;
+  padding: 5px 1em;
+  background-color: var(--base-clr);
+  border-right: 1px solid var(--line-clr);
+  position: sticky;
+  top: 0;
+  align-self: start;
+  transition: 300ms ease-in-out;
+  overflow: hidden;
+  text-wrap: nowrap;
+  visibility: hidden;
+}
+
+#sidebar.close{
+  padding: 5px;
+  width: 60px;
+}
+
+#sidebar ul{
+  list-style: none;
+}
+
+#sidebar > ul > li:first-child{
+  margin-bottom: 16px;
+}
+
+#sidebar ul li.active a{
+  color: var(--accent-clr);
+}
+
+#sidebar ul li.active a svg{
+  fill: var(--accent-clr);
+}
+
+#sidebar a,
+#sidebar .dropdown-btn,
+#sidebar .logo{
+  border-radius: .5em;
+  padding: .85em;
+  text-decoration: none;
+  color: var(--text-clr);
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.dropdown-btn{
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+#sidebar svg{
+  flex-shrink: 0;
+  fill: var(--text-clr);
+}
+
+#sidebar a span,
+#sidebar .dropdown-btn span{
+  flex-grow: 1;
+}
+
+#sidebar a:hover,
+#sidebar .dropdown-btn:hover{
+  background-color: var(--hover-clr);
+}
+
+#sidebar .sub-menu{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 300ms ease-in-out;
+  padding-left: 19px;
+}
+
+#sidebar .sub-menu > div{
+  overflow: hidden;
+}
+
+#sidebar .sub-menu.show{
+  grid-template-rows: 1fr;
+}
+
+.dropdown-btn svg{
+  transition: 200ms ease;
+}
+
+.rotate svg:last-child{
+  rotate: 180deg;
+}
+
+#sidebar .sub-menu a{
+  padding-left: 2em;
+}
+
+
+
+#toggle-btn{
+  position: absolute;
+  background: none;
+  padding: 0.6em;
+  border: none;
+  border-radius: .5em;
+  right: 24px;
+  top: 3%;
+  transform: translateY(-50%);
+  margin-top: 10px;   /* 🔼 THIS moves it up */
+   svg{
+    transition: rotate 150ms ease;
+  }
+}
+
+@media (max-width: 800px) {
+
+  /* ===============================
+     RESET DESKTOP GRID LAYOUT
+  =============================== */
+  body {
+    display: block !important;
+  }
+
+  /* ===============================
+     FORCE SIDEBAR TO BOTTOM
+  =============================== */
+  #sidebar {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0;
+
+    width: 100% !important;
+    height: 60px !important;
+
+    background: var(--base-clr);
+    border-top: 1px solid var(--line-clr);
+    border-right: none !important;
+
+    z-index: 9999;
+
+    /* 🔥 kill grid / transforms / sticky */
+    grid-column: unset !important;
+    grid-row: unset !important;
+    transform: none !important;
+  }
+
+  /* ===============================
+     BOTTOM NAV LAYOUT
+  =============================== */
+  #sidebar > ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #sidebar ul li {
+    flex: 1;
+    height: 100%;
+  }
+
+  #sidebar ul a,
+  #sidebar ul .dropdown-btn {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0;
+  }
+
+  /* ===============================
+     HIDE DESKTOP CONTENT
+  =============================== */
+  .layer1,
+  .layer2,
+  #sidebar > ul > li:first-child,
+  #sidebar ul li span,
+  .dropdown-btn svg:last-child,
+  #sidebar .sub-menu {
+    display: none !important;
+  }
+
+  /* ===============================
+     PAGE CONTENT SPACING
+  =============================== */
+  main {
+    padding-bottom: 80px !important;
+  }
+
+   #sidebar svg {
+    fill: currentColor !important;
+  }
+
+  /* active item color */
+  #sidebar ul li.active > a,
+  #sidebar ul li.active > .dropdown-btn {
+    color: var(--accent-clr) !important;
+    background: none;
+  }
+}
+
+
+
+
+/* ================= KEEP MUSIC LOGO ON CLOSE ================= */
+
+/* hide text when sidebar is closed */
+#sidebar.close .music-logo::after {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* center the logo when sidebar is closed */
+#sidebar.close .music-logo {
+  justify-content: center;
+  width: 100%;
+}
+
+/* ensure logo icon always visible */
+#sidebar.close .music-logo svg {
+  width: 36px;
+  height: 36px;
+}
+
+#toggle-btn svg{
+  transition: rotate 150ms ease;
+}
+
+/* ---------------- Main ---------------- */
+
+main{
+  padding: min(30px, 7%);
+  overflow: hidden;
+}
+
+main p{
+  color: var(--secondary-text-clr);
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.container{
+  border: 1px solid var(--line-clr);
+  border-radius: 1em;
+  margin-bottom: 20px;
+  padding: min(3em, 15%);
+}
+
+/* ---------------- Mobile ---------------- */
+
+@media(max-width: 380px){
+  body{
+    grid-template-columns: 1fr;
+  }
+
+  main{
+    padding: 2em 1em 60px 1em;
+  }
+
+  .container{
+    border: none;
+    padding: 0;
+  }
+
+  #sidebar{
+    height: 60px;
+    width: 100%;
+    border-right: none;
+    border-top: 1px solid var(--line-clr);
+    padding: 0;
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+
+
+#sidebar > ul > li:first-child{
+  position: relative;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+#sidebar.close #toggle-btn{
+  right: 50%;
+  left: auto;
+  transform: translate(60%, -50%);
+}
+.active{
+  margin-top: 1px;
+}
+
+/* ==========================
+   CAROUSEL STYLING
+   ========================== */
+.carousel {
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 0 !important;
+  padding-right: 0;
+  overflow-x: auto;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  anchor-name: --carousel;
+}
+
+/* Hide default scrollbar */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+/* ==========================
+   CARDS INSIDE CAROUSEL
+   ========================== */
+.carousel .card {
+  scroll-snap-align: start;
+  flex-direction: column;
+  flex: 0 0 14rem;
+  background-color: #11121a;
+  padding: 0.75rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  transition: all 250ms ease;
+}
+
+/* Card images */
+.cards {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  transition: all 250ms ease;
+}
+
+/* Card text */
+.card p {
+  padding-top: 15px;
+  padding-bottom: 5px;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  letter-spacing: -1px;
+  font-weight: 600;
+  width: 100%;
+  color: #fff;
+  transition: all 250ms ease;
+}
+
+p:hover {
+  text-decoration: underline;
+}
+
+/* Card links */
+.card  a{
+  font-family: Montserrat, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 2px;
+  color: #b3b3b3;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================
+   RESPONSIVE
+   ========================== */
+/* Mobile: show 1 card at a time */
+@media (max-width: 768px) {
+  .carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 0; /* remove gap */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .card {
+    min-width: 100%;
+    scroll-snap-align: start;
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+}
+@media (max-width: 800px) {
+
+  /* Target Calendar item (2nd last item in sidebar) */
+  #sidebar ul li a[href="calendar.html"] svg {
+    display: none; /* hide calendar icon */
+  }
+
+  #sidebar ul li a[href="calendar.html"]::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9.5 3a6.5 6.5 0 0 1 5.15 10.47l5.44 5.44-1.42 1.42-5.44-5.44A6.5 6.5 0 1 1 9.5 3Zm0 2a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9Z'/%3E%3C/svg%3E") no-repeat center;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9.5 3a6.5 6.5 0 0 1 5.15 10.47l5.44 5.44-1.42 1.42-5.44-5.44A6.5 6.5 0 1 1 9.5 3Zm0 2a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9Z'/%3E%3C/svg%3E") no-repeat center;
+  }
+}
+
+/* ==========================
+   MAIN CONTAINER
+   ========================== */
+.main-container {
+  margin-left: 0px;
+  padding-left: 0px;
+  background: linear-gradient(180deg, #2c2e3b 10%, #121212 60%);
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ==========================
+   SIDEBAR RELATED CARD STYLING
+   ========================== */
+
+/* Sidebar closed - 6 cards visible */
+#sidebar.close ~ main .carousel {
+  padding-left: 10px !important;
+  width: calc(99% - -10px);
+}
+
+/* Sidebar open - 6 cards visible */
+#sidebar:not(.close) ~ main .card {
+  flex: 0 0 calc((100% - 5rem) / 6);
+}
+
+/* Sidebar closed - 5.5 cards visible */
+#sidebar.close ~ main .card {
+  flex: 0 0 calc((90% - 1rem) / 5.5);
+}
+
+.section-header {
+  padding-left: 1rem;
+  padding: 1.5rem 0 0.5rem 0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #2c2e3b 10%, #121212 60%);
+}
+.section-header-l2 {
+  padding-left: 1rem;
+  padding: 1.5rem 0 0.5rem 0;
+  margin-bottom: 8px;
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+}
+#sidebar.close ~ main .section-header-l2 {
+  width: calc(100% - 10px);
+  margin-left: auto;
+  margin-right: 0;
+}
+#sidebar.close ~ main .section-header {
+  width: calc(100% - 10px);
+  margin-left: auto;
+  margin-right: 0;
+}
+#sidebar:not(.close) ~ main .section-header {
+  width: calc(100% - 10px);
+  margin-left: auto;
+  margin-right: 0;
+}
+#sidebar:not(.close) ~ main .section-header-l2 {
+  width: calc(100% - 10px);
+  margin-left: auto;
+  margin-right: 0;
+}
+#sidebar.close ~ main p {
+  font-size: 1.2rem;
+}
+#sidebar.close ~ main .Artists a {
+    font-size: 1rem !important;
+}
+.section-header h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.section-header-l2 h2{
+  font-family: Montserrat, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-actions {
+  margin-left: auto;
+  margin-top: -4px;      /* move UP */
+  margin-right: 115px;
+  margin-bottom: -48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-actions-l2 {
+  margin-left: auto;
+  margin-top: -4px;      /* move UP */
+  margin-right: 115px;
+  margin-bottom: -48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: static;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.more-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.card:hover{
+  background-color: rgb(32, 32, 37);
+}
+
+
+
+
+
+
+
+.music-showall {
+  flex: 1;
+  height: 100vh;
+  padding: 24px 32px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  background-color: #11121a;
+}
+
+/* ================================
+   PAGE HEADER
+================================ */
+.music-header {
+  top: 0;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  /* background: linear-gradient(180deg, #3a3c4b  0%, #121212 85%); */
+}
+
+.music-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+/* ================================
+   GRID LAYOUT (SPOTIFY STYLE)
+================================ */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+/* ================================
+   ALBUM CARD
+================================ */
+.music-card {
+  background: #11121a;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.music-card:hover {
+  background: #222533;
+}
+
+/* ================================
+   ALBUM IMAGE
+================================ */
+.music-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ================================
+   ALBUM TEXT
+================================ */
+.music-card h4 {
+  margin-top: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-card a {
+  margin-top: 4px;
+  font-size: 1.1rem;
+  color: #b3b3b3;
+  text-decoration: none;
+}
+
+.music-card a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   SCROLLBAR (OPTIONAL – SPOTIFY FEEL)
+================================ */
+.music-showall::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.music-showall::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.music-showall::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 10px;
+}
+
+.music-showall::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ================================
+   RESPONSIVE TWEAKS
+================================ */
+@media (max-width: 300px) {
+  .music-showall {
+    padding: 20px;
+  }
+
+  .music-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 300px) {
+  #sidebar {
+    display: none;
+  }
+
+  .music-showall {
+    padding: 16px;
+  }
+
+  .music-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+}
+/* ===== SECTION HEADER ACTIONS ===== */
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== ARROW BUTTONS ===== */
+.arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #11121a;
+  color: #ffffff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.left{
+  position: absolute;
+  left:1770px;
+}
+.right{
+  position: absolute;
+  left:1820px;
+}
+.arrow-btn:hover {
+  background: #222533;
+  transform: scale(1.05);
+}
+
+.arrow-btn:active {
+  transform: scale(0.95);
+}
+
+/* ===== OPTIONAL: HIDE ARROWS ON MOBILE ===== */
+@media (max-width: 768px) {
+  .arrow-btn {
+    display: none;
+  }
+}
+
