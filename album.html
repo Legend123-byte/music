@@ -12,8 +12,18 @@
 </head>
 
 <body class="album-page">
-    <button class="mobile-back-btn" onclick="goBack()" aria-label="Go back">
-        ←
+    <div class="album-top-bar">
+    
+    </div>
+    <button class="mobile-back-btn" onclick="goBack()">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M15.5 19.5L8 12l7.5-7.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </svg>
     </button>
 
     <nav id="sidebar">
@@ -102,7 +112,7 @@
                 </ul>
             </li>
             <li>
-                <button onclick=toggleSubMenu(this) class="dropdown-btn">
+                <button onclick="toggleSubMenu(this, event)" class="dropdown-btn" data-menu="library">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#e8eaed">
                         <path
@@ -163,7 +173,7 @@
                     </div>
                 </div>
             </div>
-
+            
         </section>
     </main>
 
