@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-document.querySelectorAll(".add-btn, .menu-btn").forEach(btn => {
+document.querySelectorAll(".add-btn,.add-btn-more1, .menu-btn").forEach(btn => {
   btn.addEventListener("click", e => e.stopPropagation());
 });
 
@@ -296,8 +296,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.title = album.title;
 });
+// ---------------- BACK BUTTON ----------------
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = "dashboard.html";
+  }
+}
 
+// ---------------- ELEMENTS ----------------
+const topBar = document.querySelector(".album-top-bar");
+const backBtn = document.querySelector(".mobile-back-btn"); // single button inside top bar
 
+// Scroll fade settings
+const fadeStart = 0;   // scrollY where fade starts
+const fadeEnd = 120;   // scrollY where top bar becomes fully opaque
+
+// ---------------- SCROLL EVENT ----------------
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  // Gradually fade in the top bar
+  let opacity = 0;
+  if (scrollY > fadeStart) {
+    opacity = Math.min((scrollY - fadeStart) / (fadeEnd - fadeStart), 1);
+  }
+
+  topBar.style.opacity = opacity;
+  topBar.style.pointerEvents = opacity > 0 ? "auto" : "none";
+
+  // Optional subtle button movement (optional)
+  backBtn.style.transform = `translateY(${Math.min(scrollY / 5, -1)}px)`;
+}, { passive: true });
+
+// ---------------- GRADIENT LOGIC ----------------
 function setGradientFromImage(imgEl) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -307,15 +340,9 @@ function setGradientFromImage(imgEl) {
 
   ctx.drawImage(imgEl, 0, 0);
 
-  const imageData = ctx.getImageData(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  ).data;
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
   let r = 0, g = 0, b = 0, count = 0;
-
   for (let i = 0; i < imageData.length; i += 40) {
     r += imageData[i];
     g += imageData[i + 1];
@@ -327,24 +354,39 @@ function setGradientFromImage(imgEl) {
   g = Math.floor(g / count);
   b = Math.floor(b / count);
 
+  // Album background
   const header = document.querySelector(".album-header");
-  if (!header) return;
+  if (header) {
+    header.style.background = `
+      linear-gradient(
+        to bottom,
+        rgb(${r}, ${g}, ${b}) 0%,
+        rgba(${r}, ${g}, ${b}, 0.6) 40%,
+        rgba(${r}, ${g}, ${b}, 0) 100%
+      )
+    `;
+  }
 
-  header.style.background = `
-    linear-gradient(
-      to bottom,
-      rgb(${r}, ${g}, ${b}) 0%,
-      rgba(${r}, ${g}, ${b}, 0.6) 40%,
-      #121212 100%
-    )
-  `;
-}
-
-//-----------------------------------------------Back Button -----------------------------------------
-function goBack() {
-  if (window.history.length > 1) {
-    window.history.back();
-  } else {
-    window.location.href = "dashboard.html";
+  // Top nav bar gradient
+  if (topBar) {
+    topBar.style.background = `
+      linear-gradient(
+        to bottom,
+        rgb(${r}, ${g}, ${b}) 100%,
+        rgba(${r}, ${g}, ${b}, 0.6) 100%,
+        rgba(${r}, ${g}, ${b}, 1) 100%
+      )
+    `;
   }
 }
+
+// ---------------- INITIALIZE ----------------
+const albumCover = document.getElementById("album-cover");
+if (albumCover.complete) {
+  setGradientFromImage(albumCover);
+} else {
+  albumCover.addEventListener("load", () => setGradientFromImage(albumCover));
+}
+
+// Optional: update page title
+document.title = albumCover?.alt || "Album";
