@@ -17,6 +17,7 @@
 html {
   font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -28,7 +29,9 @@ body {
   grid-template-columns: auto 1fr;
 
 }
-
+html,body{
+  overflow-x: hidden;
+}
 .layer1 {
   padding: 17px 30px;
   display: flex;
@@ -494,9 +497,25 @@ main p {
   scroll-snap-type: x mandatory;
   anchor-name: --carousel;
 }
+.carousel-l2 {
+  width: 100%;
+  padding-left: 0 !important;
+  padding-right: 0;
+  overflow-x: auto;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  anchor-name: --carousel;
+}
+
 
 /* Hide default scrollbar */
 .carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel-l2::-webkit-scrollbar {
   display: none;
 }
 
@@ -504,6 +523,19 @@ main p {
    CARDS INSIDE CAROUSEL
    ========================== */
 .carousel .card {
+  scroll-snap-align: start;
+  flex-direction: column;
+  flex: 0 0 14rem;
+  background-color: #11121a;
+  padding: 0.75rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  transition: all 250ms ease;
+}
+
+.carousel-l2 .card {
   scroll-snap-align: start;
   flex-direction: column;
   flex: 0 0 14rem;
@@ -550,6 +582,9 @@ main p {
   font-weight: 600;
   width: 100%;
   color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   transition: all 250ms ease;
 }
 
@@ -599,6 +634,13 @@ p:hover {
     margin: 0;
     padding: 70px 12px;
   }
+
+  main.music-showall {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 88px; /* for bottom nav */
+  box-sizing: border-box;
+}
 
   /* FORCE EXACTLY 2 CARDS */
   .music-grids {
@@ -676,7 +718,7 @@ p:hover {
    ========================== */
 
 /* Sidebar closed - 6 cards visible */
-#sidebar.close~main .carousel {
+#sidebar.close~main .carousel,.carousel-l2 {
   padding-left: 10px !important;
   width: calc(99% - -10px);
 }
@@ -702,7 +744,7 @@ p:hover {
 
 .section-header-l2 {
   padding-left: 1rem;
-  padding: 1.5rem 0 0.5rem 0;
+  padding: 3rem 0 0.5rem 0;
   margin-bottom: 1px;
   display: flex;
   /* margin-top: 40px; */
@@ -999,7 +1041,7 @@ p:hover {
 }
 .section-actions--bottom {
   position: absolute;
-  top: 475px;           /* ✅ same as upper */
+  top: 425px;           /* ✅ same as upper */
   right: -75px;           /* ✅ same as upper */
   display: flex;
   align-items: center;
@@ -1145,12 +1187,12 @@ p:hover {
 @media (max-width: 600px) {
 
   /* 🔴 KILL CAROUSEL BEHAVIOR */
-  .carousel {
+  .carousel,.carousel-l2 {
     gap: 1px !important;
     scroll-snap-type: none !important;
   }
 
-  .carousel .card {
+  .carousel,.carousel-l2 .card {
     flex: unset !important;
     width: 100% !important;
     padding: 10px !important;
@@ -1233,8 +1275,7 @@ p:hover {
     font-size: 1.3rem;
     line-height: 1.2;
     flex-shrink: 0;
-    position: absolute;
-    bottom: 360px;
+    margin-bottom: 4px;
   }
 
   .more-link {
@@ -1265,7 +1306,7 @@ p:hover {
     overflow-x: visible !important;
   }
 
-  .carousel {
+  .carousel,.carousel-l2 {
     display: flex !important;
     flex-direction: row;
     gap: 14px;
@@ -1276,8 +1317,17 @@ p:hover {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
-    padding: 20px 0 20px 12px;
+    /* padding: 20px 0 20px 12px; */
   }
+
+  .section-header-l2 {
+  padding-left: 1rem;
+  padding: 1.5rem 0 0rem 0;
+  margin-bottom: 1px;
+  display: flex;
+  /* margin-top: 40px; */
+  align-items: center;
+}
 
   /* hide scrollbar */
   .carousel::-webkit-scrollbar {
@@ -1285,6 +1335,14 @@ p:hover {
   }
 
   .carousel .card {
+    flex: 0 0 45% !important;
+    /* Spotify-style width */
+    scroll-snap-align: start;
+
+    padding: 10px;
+    border-radius: 12px;
+  }
+    .carousel-l2 .card {
     flex: 0 0 45% !important;
     /* Spotify-style width */
     scroll-snap-align: start;
@@ -1327,7 +1385,7 @@ p:hover {
   top: 12px;
   right: 12px;
 
-  background: rgba(68, 74, 237);
+  background: rgb(68, 74, 237);
   color: #fff;
 
   border: none;
@@ -1335,8 +1393,11 @@ p:hover {
   width: 34px;
   height: 34px;
 
-  font-size: 20px;
-  font-weight: bold;
+  /* 🔑 MUST be 16px+ to stop mobile zoom */
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+
   cursor: pointer;
 
   display: flex;
@@ -1346,7 +1407,10 @@ p:hover {
   z-index: 10;
   box-shadow: 0 6px 16px rgba(94, 99, 255, 0.45);
 
-  /* anti-glitch */
+  /* ✅ anti-zoom + anti-glitch */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
   transform: translateZ(0);
   will-change: transform;
   backface-visibility: hidden;
@@ -1610,7 +1674,17 @@ p:hover {
   transition: opacity 0.25s ease;
   background: none; /* gradient applied by JS */
 }
-
+.album-top-bar-2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  z-index: 1500;
+  background-color: var(--base-clr);
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
 
 .album-top-bar.show {
   opacity: 1;
@@ -1647,6 +1721,13 @@ p:hover {
 /* Hide completely on desktop */
 @media (min-width: 769px) {
   .album-top-bar,
+  .mobile-back-btn {
+    display: none;
+  }
+}
+/* Hide completely on desktop */
+@media (min-width: 769px) {
+  .album-top-bar-2,
   .mobile-back-btn {
     display: none;
   }
