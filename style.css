@@ -92,11 +92,6 @@ body {
   transition: opacity 0.2s ease;
 }
 
-/* .form-control:has(input:focus)::before,
-.form-control:has(input:valid)::before{
-  opacity: 1;
-} */
-
 .form-control input {
   height: 40px;
   width: 230px;
@@ -112,11 +107,6 @@ body {
   caret-color: transparent;
   cursor: pointer;
 }
-
-/* .form-control input:focus{
-  border-color: rgb(27, 48, 182);
-  box-shadow: 0 0 6px rgba(0, 38, 255, 0.6);
-} */
 
 .form-control input:is(:focus, :valid) {
   background: #444;
@@ -607,7 +597,7 @@ p:hover {
     width: 100%;
     max-width: 100%;
     margin: 0;
-    padding: 16px 12px;
+    padding: 70px 12px;
   }
 
   /* FORCE EXACTLY 2 CARDS */
@@ -615,7 +605,7 @@ p:hover {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 14px;
+    /* gap: 14px; */
   }
 
   /* CARD FIX */
@@ -713,9 +703,9 @@ p:hover {
 .section-header-l2 {
   padding-left: 1rem;
   padding: 1.5rem 0 0.5rem 0;
-  margin-bottom: 8px;
+  margin-bottom: 1px;
   display: flex;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   align-items: center;
 }
 
@@ -797,11 +787,14 @@ p:hover {
 }
 
 .more-link {
+  order: 1;              /* always after arrows */
+  margin-left: 6px;      /* small spacing from right arrow */
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   text-decoration: none;
-  position: static;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.35);
   padding: 6px 16px;
@@ -813,6 +806,7 @@ p:hover {
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
 
 .more-link:hover {
   background: rgba(255, 255, 255, 0.12);
@@ -854,7 +848,7 @@ p:hover {
 .music-showall {
   flex: 1;
   height: 100vh;
-  padding: 24px 32px;
+  /* padding: 24px 22px; */
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -882,7 +876,7 @@ p:hover {
 .music-grids {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 24px;
+  /* gap: 24px; */
 }
 
 /* ================================
@@ -982,48 +976,68 @@ p:hover {
     gap: 16px;
   }
 }
+.section-header,
+.section-header-l2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 🔥 key line */
+  gap: 16px;
+}
+.section-header h2,
+.section-header-l2 h2 {
+  min-width: 0;
+  flex: 1;            /* 🔥 text takes remaining space */
+}
 
-/* ===== SECTION HEADER ACTIONS ===== */
-.section-actions {
+.section-actions--top {
+  position: absolute;
+  top: 58px;
+  right: -75px;           /* ✅ no negative values */
   display: flex;
   align-items: center;
   gap: 10px;
 }
+.section-actions--bottom {
+  position: absolute;
+  top: 475px;           /* ✅ same as upper */
+  right: -75px;           /* ✅ same as upper */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
 
-/* ===== ARROW BUTTONS ===== */
+
+.arrow-btn.left {
+  order: 2;
+}
+
+.arrow-btn.right {
+  order: 3;
+}
+
+
+
 .arrow-btn {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   border: none;
-  background: #11121a;
-  color: #ffffff;
+  background: #7c7e88;
+  color: #fff;
   font-size: 1.6rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.left {
-  position: absolute;
-  left: 1560px;
-}
-
-.right {
-  position: absolute;
-  left: 1600px;
 }
 
 .arrow-btn:hover {
   background: #222533;
-  transform: scale(1.05);
 }
 
-.arrow-btn:active {
-  transform: scale(0.95);
-}
+
+
 
 /* ===== OPTIONAL: HIDE ARROWS ON MOBILE ===== */
 @media (max-width: 768px) {
@@ -1132,10 +1146,7 @@ p:hover {
 
   /* 🔴 KILL CAROUSEL BEHAVIOR */
   .carousel {
-    /* display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important; */
-    gap: 14px !important;
-    /* overflow-x: hidden !important; */
+    gap: 1px !important;
     scroll-snap-type: none !important;
   }
 
@@ -1145,11 +1156,7 @@ p:hover {
     padding: 10px !important;
   }
 
-  /* 🔴 REMOVE DESKTOP CARD WIDTH LOGIC */
-  /* #sidebar.close ~ main .card,
-  #sidebar:not(.close) ~ main .card {
-    flex: unset !important;
-  } */
+
 
   /* ✅ IMAGE FIX (NO MORE CIRCLES / TINY IMAGES) */
   .card img {
@@ -1217,7 +1224,7 @@ p:hover {
     line-height: 1.2;
     flex-shrink: 0;
     position: relative;
-    bottom: -25px;
+    bottom: -15px;
   }
 
   .section-header-l2 h2 {
@@ -1226,15 +1233,16 @@ p:hover {
     font-size: 1.3rem;
     line-height: 1.2;
     flex-shrink: 0;
+    position: absolute;
+    bottom: 360px;
   }
 
   .more-link {
     flex-shrink: 1;
-    /* button gives space to title */
     white-space: nowrap;
     position: relative;
-    left: 25px;
-    bottom: -1px;
+    left: 30px;
+    bottom: 20px;
   }
 
   .more-link2 {
@@ -1268,7 +1276,7 @@ p:hover {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
-    padding: 10px 0 20px 12px;
+    padding: 20px 0 20px 12px;
   }
 
   /* hide scrollbar */
@@ -1277,7 +1285,7 @@ p:hover {
   }
 
   .carousel .card {
-    flex: 0 0 72% !important;
+    flex: 0 0 45% !important;
     /* Spotify-style width */
     scroll-snap-align: start;
 
@@ -1356,7 +1364,7 @@ p:hover {
   min-width: 0;
   background: #11121a;
   border-radius: 12px;
-  padding: 16px;
+  padding: 10px;
   cursor: pointer;
   transition: background 0.25s ease;
   isolation: isolate;
@@ -1372,14 +1380,17 @@ p:hover {
 
 .more-card h4 {
   padding-top: 15px;
-  padding-bottom: 5px;
+  padding-bottom: -1px;
   font-family: Montserrat, Arial, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   font-weight: 600;
   width: 100%;
   color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   transition: all 250ms ease;
 }
 
@@ -1389,7 +1400,7 @@ p:hover {
   font-weight: 500;
   text-decoration: none;
   display: inline-block;
-  margin-top: 2px;
+  margin-top: 1px;
   color: #b3b3b3;
 }
 
@@ -1496,6 +1507,12 @@ p:hover {
   opacity: 0.7;
   margin-left: 6px;
 }
+ #album-title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
 
 
 @media (max-width: 768px) {
@@ -1579,35 +1596,250 @@ p:hover {
 }
 
 
+/* Top navigation bar - fades in on scroll */
+.album-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  z-index: 1500;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  background: none; /* gradient applied by JS */
+}
 
 
-/* Mobile back button */
+.album-top-bar.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .mobile-back-btn {
   position: fixed;
-  top: 16px;
+  top: 10px;
   left: 16px;
-  z-index: 2000;
-
   width: 40px;
   height: 40px;
   border-radius: 50%;
-
   border: none;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-
-  color: #fff;
-  font-size: 20px;
+  background: transparent;
+  color: white;
   cursor: pointer;
+  z-index: 1600;
 
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-back-btn svg {
+  width: 22px;
+  height: 22px;
 }
 
-/* Show only on mobile */
+/* optional subtle move on scroll */
+.mobile-back-btn.scrolled {
+  transform: translateY(-3px);
+}
+
+/* Hide completely on desktop */
+@media (min-width: 769px) {
+  .album-top-bar,
+  .mobile-back-btn {
+    display: none;
+  }
+}
+
+
+/* Show bar on scroll */
+.album-top-bar.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* show only on mobile */
 @media (max-width: 768px) {
   .mobile-back-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   TABLET + SMALL LAPTOP (768px – 1500px)
+========================================= */
+@media (min-width: 768px) and (max-width: 1500px) {
+
+  /* =====================
+     MAIN / GRID
+  ===================== */
+  main {
+    padding: 24px 24px 24px 36px;
+    overflow-x: hidden;
+  }
+
+  /* =====================
+     SIDEBAR
+  ===================== */
+  #sidebar {
+    width: 260px;
+  }
+
+  #sidebar.close {
+    position: absolute;
+    left: 0;
+    width: 60px;
+    z-index: 1000;
+  }
+
+  #sidebar.close ~ main {
+    grid-column: 1 / -1;
+    padding-left: 84px;
+  }
+
+  #sidebar:not(.close) ~ main {
+    padding-left: 36px;
+  }
+
+  /* =====================
+     SEARCH BAR (FIXED – RESPONSIVE, NO SHIFT)
+  ===================== */
+  .form-control {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form-control input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* =====================
+     SECTION HEADERS
+  ===================== */
+  .section-header,
+  .section-header-l2 {
+    padding-inline: 1rem;
+  }
+
+  .section-header h2,
+  .section-header-l2 h2 {
+    font-size: 1.7rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .section-actions,
+  .section-actions-l2 {
+    margin: 0;
+    position: static;
+  }
+
+  /* =====================
+     CAROUSEL
+  ===================== */
+  .carousel {
+    gap: 16px;
+    padding-inline: 12px;
+  }
+
+  #sidebar:not(.close) ~ main .card {
+    flex: 0 0 calc((100% - 4rem) / 5);
+  }
+
+  #sidebar.close ~ main .card {
+    flex: 0 0 calc((100% - 2rem) / 5.5);
+  }
+
+  /* =====================
+     GRID ALBUM VIEW
+  ===================== */
+  .music-grids {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .music-cards h4 {
+    font-size: 16px;
+  }
+
+  .music-cards a {
+    font-size: 14px;
+  }
+
+  /* =====================
+     ALBUM PAGE
+  ===================== */
+  .album-header {
+    padding: 32px;
+    background: none;
+  }
+
+  .album-header,
+  .album-header * {
+    background-color: transparent !important;
+  }
+
+  .album-hero {
+    gap: 28px;
+    padding: 32px;
+  }
+
+  .album-hero img {
+    width: 240px;
+    height: 240px;
+  }
+
+  .album-info h1 {
+    font-size: 2.4rem;
+    line-height: 1.2;
+  }
+
+  #album-artist {
+    font-size: 1rem;
+  }
+
+  .album-page main {
+    background: #11121a;
+  }
+
+  /* =====================
+     TRACK INFO
+  ===================== */
+  .track-info {
+    font-size: 0.95rem;
+  }
+
+  #artist-thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* =====================
+     BUTTONS
+  ===================== */
+  .arrow-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1.4rem;
+  }
+
+  /* =====================
+     MOBILE-ONLY OFF
+  ===================== */
+  .mobile-back-btn {
+    display: none;
   }
 }
