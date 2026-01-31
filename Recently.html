@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link rel="stylesheet" href="Recent.css">
+  <link rel="stylesheet" href="style2.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
   <script type="text/javascript" src="app.js" defer></script>
+  <script type="text/javascript" src="app2.js" defer></script>
 </head>
 
 <body>
@@ -62,7 +64,7 @@
           <span>Home</span>
         </a>
       </li>
-      <li class="active">
+      <li>
         <a href="dashboard.html">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
             <path
@@ -85,7 +87,7 @@
         </button>
         <ul class="sub-menu">
           <div>
-            <li>
+            <li class="active">
               <a href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                   fill="#e3e3e3">
@@ -169,8 +171,36 @@
           <span>Profile</span>
         </a>
       </li>
+      </li>
+        <li class="panelbtn">
+
+          <button id="openBtn" class="panel-open-btn">▶ Open Panel</button>
+
+        </li>
     </ul>
   </nav>
+
+  <!-- Side Panel -->
+
+    
+    <div id="sidePanel" class="side-panel">
+      <div class="panel-header">
+        <h3>Panel</h3>
+        <button id="closeBtn" style="position: relative; right:300px;">✕</button>
+      </div>
+
+      <div class="panel-content">
+        <video src="your-video.mp4" controls></video>
+      </div>
+
+      <div id="resizeHandle" class="panel-resize-handle"></div>
+
+    </div>
+     <div class="side-rail" id="sideRail">
+    <button class="rail-btn" title="Open Panel">❯</button>
+  </div>
+
+  <!-- <div class="player">player</div> -->
   <main>
 
     <h2 class="recent-title">Recently Added</h2>
