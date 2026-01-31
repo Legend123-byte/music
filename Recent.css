@@ -19,6 +19,16 @@ html {
   line-height: 1.5rem;
 }
 
+.player {
+  background-color: var(--hover-clr);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 85px;
+  z-index: 100;
+  overflow: hidden;
+}
+
 body {
   min-height: 100vh;
   min-height: 100dvh;
@@ -575,6 +585,7 @@ p:hover {
 
 
 
+
 .music-showall {
   flex: 1;
   height: 100vh;
@@ -625,6 +636,7 @@ p:hover {
   background: #222533;
 }
 
+
 /* ================================
    ALBUM IMAGE
 ================================ */
@@ -634,6 +646,43 @@ p:hover {
   object-fit: cover;
   border-radius: 8px;
 }
+
+@media (min-width: 801px) and (max-width: 914px) {
+
+  /* reduce horizontal padding eating grid width */
+  .music-showall {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* force 3 columns */
+  .music-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .music-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .music-card a {
+    margin-top: 4px;
+    font-size: 1rem;
+    color: #b3b3b3;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+}
+
+
 
 /* ================================
    ALBUM TEXT
@@ -729,4 +778,77 @@ p:hover {
   text-align: left;
   cursor: pointer;
   font-size: 14px;
+}
+
+@media (min-width: 801px) and (max-width: 914px) {
+
+  /* reduce horizontal padding eating grid width */
+  .music-showall {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* force 3 columns */
+  .music-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .music-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .music-card a {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .music-card h4{
+    font-size: 0.9rem;
+  }
+    .music-card .menu-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+  }
+
+.music-card .menu,
+.card .menu {
+  position: absolute;
+  top: 36px;                 /* ↓ closer to button */
+  right:-0px;
+
+  background: #1c1c1c;
+  border-radius: 6px;        /* ↓ tighter corners */
+  padding: 1px 0;            /* ↓ less vertical padding */
+  min-width: 160px;           /* ↓ smaller width */
+
+  height: fit-content;
+  display: none;
+  z-index: 20;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.menu .remove-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
 }
