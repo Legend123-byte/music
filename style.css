@@ -7,6 +7,7 @@
   --text-clr: #e6e6ef;
   --accent-clr: #5e63ff;
   --secondary-text-clr: #b0b3c1;
+  --player-height: 82px;
 }
 
 * {
@@ -29,9 +30,31 @@ body {
   grid-template-columns: auto 1fr;
 
 }
-html,body{
-  overflow-x: hidden;
+
+.player {
+  background-color: var(--hover-clr);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 85px;
+  z-index: 100;
+  overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .player {
+    background-color: blue;
+    position: fixed;
+    bottom: 57px;
+    width: 100%;
+    height: 82px;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+
+}
+
 .layer1 {
   padding: 17px 30px;
   display: flex;
@@ -73,7 +96,6 @@ html,body{
   margin: 0px 25px;
   display: flex;
   justify-content: flex-end;
-  /* ⬅ pushes search to right */
 }
 
 .form-control {
@@ -89,7 +111,6 @@ html,body{
   top: 6px;
   bottom: 6px;
   width: 3px;
-  /* background: rgb(17, 17, 190); */
   opacity: 0;
   border-radius: 2px;
   transition: opacity 0.2s ease;
@@ -168,7 +189,6 @@ html,body{
   left: 50%;
   transform: translate(-30%, 10%);
   fill: rgb(255, 255, 255);
-  /* or white if you want */
 }
 
 
@@ -187,7 +207,7 @@ html,body{
   transition: 300ms ease-in-out;
   overflow: hidden;
   text-wrap: nowrap;
-  visibility: hidden;
+  
 }
 
 #sidebar.close {
@@ -287,7 +307,6 @@ html,body{
   transform: translateY(-50%);
   margin-top: 10px;
 
-  /* 🔼 THIS moves it up */
   svg {
     transition: rotate 150ms ease;
   }
@@ -320,7 +339,6 @@ html,body{
 
     z-index: 9999;
 
-    /* 🔥 kill grid / transforms / sticky */
     grid-column: unset !important;
     grid-row: unset !important;
     transform: none !important;
@@ -420,7 +438,8 @@ html,body{
 
 main {
   padding: min(30px, 7%);
-  overflow: hidden;
+  overflow-x: hidden;
+  scrollbar-width: none;
 }
 
 main p {
@@ -497,6 +516,7 @@ main p {
   scroll-snap-type: x mandatory;
   anchor-name: --carousel;
 }
+
 .carousel-l2 {
   width: 100%;
   padding-left: 0 !important;
@@ -510,11 +530,10 @@ main p {
   anchor-name: --carousel;
 }
 
-
-/* Hide default scrollbar */
 .carousel::-webkit-scrollbar {
   display: none;
 }
+
 .carousel-l2::-webkit-scrollbar {
   display: none;
 }
@@ -610,7 +629,6 @@ p:hover {
 /* ==========================
    RESPONSIVE
    ========================== */
-/* Mobile: show 1 card at a time */
 @media (max-width: 600px) {
 
   /* REMOVE SIDEBAR LAYOUT EFFECT */
@@ -624,10 +642,9 @@ p:hover {
     max-width: 100%;
     margin: 0;
     padding: 0 12px 80px;
-    /* bottom for nav */
+    overflow-x: hidden;
   }
 
-  /* MUSIC SECTION FULL WIDTH */
   .music-showall {
     width: 100%;
     max-width: 100%;
@@ -636,18 +653,16 @@ p:hover {
   }
 
   main.music-showall {
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 88px; /* for bottom nav */
-  box-sizing: border-box;
-}
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 88px;
+    box-sizing: border-box;
+  }
 
-  /* FORCE EXACTLY 2 CARDS */
   .music-grids {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    /* gap: 14px; */
   }
 
   /* CARD FIX */
@@ -685,7 +700,6 @@ p:hover {
 
 @media (max-width: 800px) {
 
-  /* Target Calendar item (2nd last item in sidebar) */
   #sidebar ul li a[href="calendar.html"] svg {
     display: none;
     /* hide calendar icon */
@@ -717,18 +731,16 @@ p:hover {
    SIDEBAR RELATED CARD STYLING
    ========================== */
 
-/* Sidebar closed - 6 cards visible */
-#sidebar.close~main .carousel,.carousel-l2 {
+#sidebar.close~main .carousel,
+.carousel-l2 {
   padding-left: 10px !important;
   width: calc(99% - -10px);
 }
 
-/* Sidebar open - 6 cards visible */
 #sidebar:not(.close)~main .card {
   flex: 0 0 calc((100% - 5rem) / 6);
 }
 
-/* Sidebar closed - 5.5 cards visible */
 #sidebar.close~main .card {
   flex: 0 0 calc((90% - 1rem) / 5.5);
 }
@@ -743,12 +755,11 @@ p:hover {
 }
 
 .section-header-l2 {
-  padding-left: 1rem;
-  padding: 3rem 0 0.5rem 0;
+  padding: 3rem 1rem 0.5rem;
   margin-bottom: 1px;
   display: flex;
-  /* margin-top: 40px; */
   align-items: center;
+  justify-content: space-between;
 }
 
 #sidebar.close~main .section-header-l2 {
@@ -785,7 +796,7 @@ p:hover {
 
 .section-header h2 {
   font-family: Montserrat, sans-serif;
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 700;
   color: #fff;
   margin: 0;
@@ -793,7 +804,7 @@ p:hover {
 
 .section-header-l2 h2 {
   font-family: Montserrat, sans-serif;
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 700;
   color: #fff;
   margin: 0;
@@ -809,18 +820,16 @@ p:hover {
 .section-actions {
   margin-left: auto;
   margin-top: -4px;
-  /* move UP */
   margin-right: 115px;
   margin-bottom: -48px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .section-actions-l2 {
   margin-left: auto;
   margin-top: -4px;
-  /* move UP */
   margin-right: 115px;
   margin-bottom: -48px;
   display: flex;
@@ -829,9 +838,8 @@ p:hover {
 }
 
 .more-link {
-  order: 1;              /* always after arrows */
-  margin-left: 6px;      /* small spacing from right arrow */
-
+  order: 1;
+  margin-left: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -890,7 +898,6 @@ p:hover {
 .music-showall {
   flex: 1;
   height: 100vh;
-  /* padding: 24px 22px; */
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -918,7 +925,6 @@ p:hover {
 .music-grids {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  /* gap: 24px; */
 }
 
 /* ================================
@@ -971,7 +977,7 @@ p:hover {
 }
 
 /* ================================
-   SCROLLBAR (OPTIONAL – SPOTIFY FEEL)
+   SCROLLBAR
 ================================ */
 .music-showall::-webkit-scrollbar {
   width: 0px;
@@ -1018,37 +1024,39 @@ p:hover {
     gap: 16px;
   }
 }
+
 .section-header,
 .section-header-l2 {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 🔥 key line */
+  justify-content: space-between;
   gap: 16px;
 }
+
 .section-header h2,
 .section-header-l2 h2 {
   min-width: 0;
-  flex: 1;            /* 🔥 text takes remaining space */
+  flex: 1;
 }
 
 .section-actions--top {
   position: absolute;
   top: 58px;
-  right: -75px;           /* ✅ no negative values */
+  right: -75px;
   display: flex;
   align-items: center;
   gap: 10px;
-}
-.section-actions--bottom {
-  position: absolute;
-  top: 425px;           /* ✅ same as upper */
-  right: -75px;           /* ✅ same as upper */
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 10;
 }
 
+.section-actions--bottom {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 50;
+  margin-top: -50px;
+  transform: translateX(100px);
+}
 
 .arrow-btn.left {
   order: 2;
@@ -1078,23 +1086,18 @@ p:hover {
   background: #222533;
 }
 
-
-
-
-/* ===== OPTIONAL: HIDE ARROWS ON MOBILE ===== */
 @media (max-width: 768px) {
   .arrow-btn {
     display: none;
   }
 }
 
-/* PLUS BUTTON */
+
 .add-btn {
   position: absolute;
   top: 8px;
-  /* distance from top of album */
+  
   right: 8px;
-  /* distance from right */
 
   background: rgba(68, 74, 237);
   color: #fff;
@@ -1169,7 +1172,6 @@ p:hover {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  /* 🔑 REQUIRED for flex */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1182,25 +1184,29 @@ p:hover {
 }
 
 /* ===========================
-   MOBILE HARD RESET (FIX)
+   Responsive
    =========================== */
 @media (max-width: 600px) {
 
-  /* 🔴 KILL CAROUSEL BEHAVIOR */
-  .carousel,.carousel-l2 {
+  .carousel {
     gap: 1px !important;
     scroll-snap-type: none !important;
+    box-sizing: border-box;
   }
 
-  .carousel,.carousel-l2 .card {
+  .carousel-l2 {
+    gap: 1px !important;
+    scroll-snap-type: none !important;
+    box-sizing: border-box;
+  }
+
+  .carousel,
+  .carousel-l2 .card {
     flex: unset !important;
     width: 100% !important;
     padding: 10px !important;
   }
 
-
-
-  /* ✅ IMAGE FIX (NO MORE CIRCLES / TINY IMAGES) */
   .card img {
     width: 100% !important;
     aspect-ratio: 1 / 1 !important;
@@ -1208,7 +1214,6 @@ p:hover {
     border-radius: 10px !important;
   }
 
-  /* ✅ TITLE FIX */
   .card p,
   .music-cards h4 {
     font-size: 14px !important;
@@ -1218,7 +1223,6 @@ p:hover {
     text-overflow: ellipsis;
   }
 
-  /* ✅ ARTIST FIX */
   .Artists {
     display: block !important;
     width: 100%;
@@ -1232,7 +1236,6 @@ p:hover {
     white-space: nowrap;
   }
 
-  /* ✅ PLUS BUTTON SIZE */
   .add-btn {
     width: 28px;
     height: 28px;
@@ -1255,27 +1258,29 @@ p:hover {
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    /* 🔑 IMPORTANT */
+    margin-left: 0px !important;
     gap: 12px;
   }
 
   .section-header h2 {
     white-space: nowrap;
-    /* 🔑 no line break */
     font-size: 1.3rem;
     line-height: 1.2;
     flex-shrink: 0;
     position: relative;
     bottom: -15px;
+    left: 20px;
   }
 
   .section-header-l2 h2 {
     white-space: nowrap;
-    /* 🔑 no line break */
     font-size: 1.3rem;
     line-height: 1.2;
     flex-shrink: 0;
     margin-bottom: 4px;
+    margin-left: 9px;
+    position: relative;
+    left: 10px;
   }
 
   .more-link {
@@ -1288,7 +1293,6 @@ p:hover {
 
   .more-link2 {
     flex-shrink: 1;
-    /* button gives space to title */
     white-space: nowrap;
     position: relative;
     left: 85px;
@@ -1297,16 +1301,11 @@ p:hover {
 }
 
 /* ===============================
-   SPOTIFY MOBILE SWIPE FIX
+    MOBILE SWIPE
 ================================ */
 @media (max-width: 768px) {
 
-  /* allow horizontal scrolling */
-  main {
-    overflow-x: visible !important;
-  }
-
-  .carousel,.carousel-l2 {
+  .carousel {
     display: flex !important;
     flex-direction: row;
     gap: 14px;
@@ -1317,34 +1316,50 @@ p:hover {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
-    /* padding: 20px 0 20px 12px; */
+  }
+
+  .carousel-l2 {
+    display: flex !important;
+    flex-direction: row;
+    gap: 14px;
+
+    overflow-x: auto !important;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    padding-right: 10px !important;
+    padding-left: 10px !important;
   }
 
   .section-header-l2 {
-  padding-left: 1rem;
-  padding: 1.5rem 0 0rem 0;
-  margin-bottom: 1px;
-  display: flex;
-  /* margin-top: 40px; */
-  align-items: center;
-}
+    padding-left: 1rem;
+    padding: 1.5rem 0 0rem 0;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+  }
 
   /* hide scrollbar */
   .carousel::-webkit-scrollbar {
     display: none;
   }
 
+  .carousel-l2::-webkit-scrollbar {
+    display: none;
+  }
+
   .carousel .card {
     flex: 0 0 45% !important;
-    /* Spotify-style width */
     scroll-snap-align: start;
 
     padding: 10px;
     border-radius: 12px;
   }
-    .carousel-l2 .card {
+
+  .carousel-l2 .card {
     flex: 0 0 45% !important;
-    /* Spotify-style width */
     scroll-snap-align: start;
 
     padding: 10px;
@@ -1374,7 +1389,7 @@ p:hover {
     text-overflow: ellipsis;
   }
 
-  /* hide arrows on mobile (Spotify does this) */
+  /* hide arrows on mobile */
   .arrow-btn {
     display: none;
   }
@@ -1392,8 +1407,6 @@ p:hover {
   border-radius: 50%;
   width: 34px;
   height: 34px;
-
-  /* 🔑 MUST be 16px+ to stop mobile zoom */
   font-size: 16px;
   font-weight: 700;
   line-height: 1;
@@ -1407,7 +1420,6 @@ p:hover {
   z-index: 10;
   box-shadow: 0 6px 16px rgba(94, 99, 255, 0.45);
 
-  /* ✅ anti-zoom + anti-glitch */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
@@ -1493,15 +1505,13 @@ p:hover {
   gap: 32px;
   padding: 40px;
   min-height: 340px;
-  /* background: linear-gradient(180deg, #5e63ff 0%, #0f0f0f 75%); */
 }
+
 .album-header {
-  background: linear-gradient(
-    to bottom,
-    #4b4bff 0%,
-    #1a1a1a 70%,
-    #121212 100%
-  );
+  background: linear-gradient(to bottom,
+      #4b4bff 0%,
+      #1a1a1a 70%,
+      #121212 100%);
   padding: 40px;
   transition: background 0.6s ease;
 }
@@ -1571,17 +1581,17 @@ p:hover {
   opacity: 0.7;
   margin-left: 6px;
 }
- #album-title {
-    font-size: 1.9rem;
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 12px;
-  }
+
+#album-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
 
 
 @media (max-width: 768px) {
 
-  /* Album page background */
   body.album-page {
     background: linear-gradient(180deg,
         #5e63ff 0%,
@@ -1592,8 +1602,6 @@ p:hover {
   main {
     padding: 0;
   }
-
-  /* Hero layout */
   .album-hero {
     padding: 90px 20px 32px;
     display: flex;
@@ -1602,7 +1610,6 @@ p:hover {
     text-align: center;
   }
 
-  /* Album image */
   #album-img {
     width: 260px;
     height: 260px;
@@ -1611,14 +1618,10 @@ p:hover {
     box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
     margin-bottom: 26px;
   }
-
-  /* Info wrapper */
   .album-info {
     max-width: 95%;
 
   }
-
-  /* Album type */
   .album-type {
     display: inline-block;
     font-size: 0.85rem;
@@ -1628,7 +1631,6 @@ p:hover {
     margin-bottom: 10px;
   }
 
-  /* Album title */
   #album-title {
     font-size: 1.9rem;
     font-weight: 700;
@@ -1636,7 +1638,6 @@ p:hover {
     margin-bottom: 12px;
   }
 
-  /* Artist */
   #album-artist {
     font-size: 1.05rem;
     font-weight: 500;
@@ -1660,7 +1661,6 @@ p:hover {
 }
 
 
-/* Top navigation bar - fades in on scroll */
 .album-top-bar {
   position: fixed;
   top: 0;
@@ -1672,8 +1672,9 @@ p:hover {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
-  background: none; /* gradient applied by JS */
+  background: none;
 }
+
 .album-top-bar-2 {
   position: fixed;
   top: 0;
@@ -1685,6 +1686,31 @@ p:hover {
   pointer-events: none;
   transition: opacity 0.25s ease;
 }
+
+
+@media (max-width: 768px) {
+  #player-panel video {
+    display: none;
+  }
+
+  #player-resizer {
+    display: none;
+  }
+
+  #player-panel {
+    display: none;
+  }
+
+}
+
+@media (max-width: 1200px) {
+  #player-panel video {
+    display: none;
+  }
+}
+
+
+
 
 .album-top-bar.show {
   opacity: 1;
@@ -1708,40 +1734,37 @@ p:hover {
   align-items: center;
   justify-content: center;
 }
+
 .mobile-back-btn svg {
   width: 22px;
   height: 22px;
 }
 
-/* optional subtle move on scroll */
 .mobile-back-btn.scrolled {
   transform: translateY(-3px);
 }
 
-/* Hide completely on desktop */
 @media (min-width: 769px) {
+
   .album-top-bar,
   .mobile-back-btn {
     display: none;
   }
 }
-/* Hide completely on desktop */
+
 @media (min-width: 769px) {
+
   .album-top-bar-2,
   .mobile-back-btn {
     display: none;
   }
 }
 
-
-/* Show bar on scroll */
 .album-top-bar.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-
-/* show only on mobile */
 @media (max-width: 768px) {
   .mobile-back-btn {
     display: flex;
@@ -1763,9 +1786,6 @@ p:hover {
 ========================================= */
 @media (min-width: 768px) and (max-width: 1500px) {
 
-  /* =====================
-     MAIN / GRID
-  ===================== */
   main {
     padding: 24px 24px 24px 36px;
     overflow-x: hidden;
@@ -1785,14 +1805,25 @@ p:hover {
     z-index: 1000;
   }
 
-  #sidebar.close ~ main {
+  #sidebar.close~main {
     grid-column: 1 / -1;
     padding-left: 84px;
   }
 
-  #sidebar:not(.close) ~ main {
+  #sidebar:not(.close)~main {
     padding-left: 36px;
   }
+
+  .section-actions--bottom {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 50;
+    margin-top: -50px;
+    transform: translateX(-6px);
+  }
+
 
   /* =====================
      SEARCH BAR (FIXED – RESPONSIVE, NO SHIFT)
@@ -1817,7 +1848,7 @@ p:hover {
 
   .section-header h2,
   .section-header-l2 h2 {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     line-height: 1.2;
     white-space: nowrap;
   }
@@ -1836,11 +1867,34 @@ p:hover {
     padding-inline: 12px;
   }
 
-  #sidebar:not(.close) ~ main .card {
+  .carousel-l2 {
+    gap: 16px;
+    padding-inline: 12px;
+  }
+
+  .carousel .card{
+    flex: 0 0 45% !important;
+    scroll-snap-align: start;
+
+    padding: 10px;
+    border-radius: 12px;
+  
+  }
+
+    .carousel-l2 .card{
+    flex: 0 0 45% !important;
+    scroll-snap-align: start;
+
+    padding: 10px;
+    border-radius: 12px;
+  
+  }
+
+  #sidebar:not(.close)~main .card {
     flex: 0 0 calc((100% - 4rem) / 5);
   }
 
-  #sidebar.close ~ main .card {
+  #sidebar.close~main .card {
     flex: 0 0 calc((100% - 2rem) / 5.5);
   }
 
@@ -1860,6 +1914,11 @@ p:hover {
     font-size: 14px;
   }
 
+    .music-grids {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
   /* =====================
      ALBUM PAGE
   ===================== */
@@ -1917,10 +1976,128 @@ p:hover {
     font-size: 1.4rem;
   }
 
+  
+
   /* =====================
      MOBILE-ONLY OFF
   ===================== */
   .mobile-back-btn {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  #sidebar {
+    position: fixed !important;
+    left: 0;
+    bottom: 0;
+    top: auto;
+
+    width: 100vw !important;
+    max-width: 100vw !important;
+
+    height: 60px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box;
+    border-top: 1px solid var(--line-clr);
+    border-right: none;
+
+    z-index: 1000;
+  }
+}
+@media (min-width: 800px) and (max-width:913px) {
+
+  body.album-page {
+    background: linear-gradient(180deg,
+        #5e63ff 0%,
+        #0f0f0f 75%);
+    min-height: 100vh;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  .album-hero {
+    padding: 90px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #album-img {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+    margin-bottom: 26px;
+  }
+
+  .album-info {
+    max-width: 95%;
+
+  }
+  .album-type {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #e0e0ff;
+    margin-bottom: 10px;
+  }
+
+  #album-title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  #album-artist {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--accent-clr);
+  }
+
+  .track-info {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #ffffffed;
+  }
+
+  #artist-thumb {
+    display: none;
+  }
+
+  .album-hero:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+@media (min-width: 1023px) and (max-width:1044px) {
+    #album-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  #album-artist {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--accent-clr);
+  }
+
+  .track-info {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffffed;
+  }
+
+   #artist-thumb {
     display: none;
   }
 }
