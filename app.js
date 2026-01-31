@@ -9,21 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.add('close');
     toggleButton.classList.add('rotate');
   }
-
   sidebar.style.visibility = 'visible';
 });
 
 function toggleSidebar() {
-  sidebar.classList.toggle('close');
-  toggleButton.classList.toggle('rotate');
+  const isClosed = sidebar.classList.toggle("close");
+  toggleButton.classList.toggle("rotate");
 
-  localStorage.setItem(
-    'sidebarState',
-    sidebar.classList.contains('close') ? 'closed' : 'open'
-  );
 
-  closeAllSubMenus();
+  localStorage.setItem("sidebarState", isClosed ? "closed" : "open");
 }
+
 
 function toggleSubMenu(button) {
   const isMobile = window.matchMedia("(max-width: 800px)").matches;
@@ -390,3 +386,6 @@ if (albumCover.complete) {
 
 // Optional: update page title
 document.title = albumCover?.alt || "Album";
+
+
+
