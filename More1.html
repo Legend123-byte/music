@@ -6,23 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
   <title>More</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
   <script type="text/javascript" src="app.js" defer></script>
+  <script type="text/javascript" src="app2.js" defer></script>
 </head>
 
 <body>
-     <div class="album-top-bar-2">
-    
-    </div>
-    <button class="mobile-back-btn" onclick="goBack()">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M15.5 19.5L8 12l7.5-7.5"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"/>
-  </svg>
-    </button>
+  <div class="album-top-bar-2">
+
+  </div>
+  <button class="mobile-back-btn" onclick="goBack()">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15.5 19.5L8 12l7.5-7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+  </button>
+  <div class="layout">
   <nav id="sidebar">
     <ul>
       <li>
@@ -180,8 +179,31 @@
           <span>Profile</span>
         </a>
       </li>
+      <li class="panelbtn">
+        <button id="openBtn" class="panel-open-btn">▶ Open Panel</button>
+      </li>
     </ul>
   </nav>
+
+
+  <div id="sidePanel" class="side-panel">
+    <div class="panel-header">
+      <h3>Panel</h3>
+      <button id="closeBtn">✕</button>
+    </div>
+
+    <div class="panel-content">
+      <video src="your-video.mp4" controls></video>
+    </div>
+
+    <div id="resizeHandle" class="panel-resize-handle"></div>
+  </div>
+       <div class="side-rail" id="sideRail">
+    <button class="rail-btn" title="Open Panel">❯</button>
+  </div>
+
+  <!-- <div class="player">player</div> -->
+
   <main class="music-showall">
     <header class="music-header">
       <h2>Albums</h2>
@@ -202,7 +224,8 @@
         </div>
       </div>
 
-      <div class="more-card album-card" data-img="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album7.jpg"
+      <div class="more-card album-card"
+        data-img="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album7.jpg"
         data-title="Sitaare" data-artist="Arijit Singh, Amitabh Bhattacharya" data-type="Single" data-year="2024">
         <button class="add-btn-more1">+</button>
         <img src="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album7.jpg" alt="">
@@ -213,7 +236,8 @@
         </div>
       </div>
 
-      <div class="more-card album-card" data-img="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album9.jpg"
+      <div class="more-card album-card"
+        data-img="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album9.jpg"
         data-title="Khat" data-artist="Navjot Ahuja" data-type="Single" data-year="2024">
         <button class="add-btn-more1">+</button>
         <img src="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album9.jpg" alt="">
@@ -222,7 +246,8 @@
           <a href="#">Navjot Ahuja</a>
         </div>
       </div>
-      <div class="more-card album-card" data-img="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album10.jpg"
+      <div class="more-card album-card"
+        data-img="https://raw.githubusercontent.com/Ashutosh100925/Music-Player/main/Albums/Album10.jpg"
         data-title="Gehra Hua" data-artist="Arijit Singh, Shashwat Sachdev, Irshad Kamil, Armaan Khan"
         data-type="Single" data-year="2024">
         <button class="add-btn-more1">+</button>
@@ -329,7 +354,7 @@
       </div>
     </section>
   </main>
-
+</div>
 </body>
 
 </html>
